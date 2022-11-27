@@ -13,13 +13,11 @@ You can have an overview of our Spring Boot Server with the diagram below:
 For more detail, please visit:
 > [Secure Spring Boot App with Spring Security & JWT Authentication](https://bezkoder.com/spring-boot-jwt-authentication/)
 
-> [For MongoDB](https://bezkoder.com/spring-boot-jwt-auth-mongodb/)
 
 ## Refresh Token
 
 ![spring-boot-refresh-token-jwt-example-flow](spring-boot-refresh-token-jwt-example-flow.png)
 
-For instruction: [Spring Boot Refresh Token with JWT example](https://bezkoder.com/spring-boot-refresh-token-jwt/)
 
 
 
@@ -42,34 +40,21 @@ For instruction: [Spring Boot Refresh Token with JWT example](https://bezkoder.c
 ```
 ## Configure Spring Datasource, JPA, App properties
 Open `src/main/resources/application.properties`
-- For PostgreSQL:
-```
-spring.datasource.url= jdbc:postgresql://localhost:5432/testdb
-spring.datasource.username= postgres
-spring.datasource.password= 123
 
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
-spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
-
-# Hibernate ddl auto (create, create-drop, validate, update)
-spring.jpa.hibernate.ddl-auto= update
-
-# App Properties
-bezkoder.app.jwtSecret= bezKoderSecretKey
-bezkoder.app.jwtExpirationMs= 86400000
-```
 - For MySQL
 ```
-spring.datasource.url= jdbc:mysql://localhost:3306/testdb?useSSL=false
-spring.datasource.username= root
-spring.datasource.password= 123456
-
-spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MySQL5InnoDBDialect
-spring.jpa.hibernate.ddl-auto= update
-
+### DATABASE ###
+spring.datasource.url=jdbc:mysql://localhost:3306/piDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&createDatabaseIfNotExist=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=
+### JPA / HIBERNATE ###
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+server.port=8090
 # App Properties
-bezkoder.app.jwtSecret= bezKoderSecretKey
-bezkoder.app.jwtExpirationMs= 86400000
+abidi.app.jwtSecret= abidiSecretKey
+abidi.app.jwtExpirationMs= 86400000
 ```
 ## Run Spring Boot application
 ```
