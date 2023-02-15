@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.spring.pi.entities.User;
+import com.spring.pi.entities.Actor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,16 +32,16 @@ public class UserDetailsImpl implements UserDetails {
 
 
 
-  public static UserDetailsImpl build(User user) {
-    List<GrantedAuthority> authorities = user.getRoles().stream()
+  public static UserDetailsImpl build(Actor actor) {
+    List<GrantedAuthority> authorities = actor.getRoles().stream()
         .map(role -> new SimpleGrantedAuthority(role.getName().name()))
         .collect(Collectors.toList());
 
     return new UserDetailsImpl(
-        user.getId(), 
-        user.getUsername(), 
-        user.getEmail(),
-        user.getPassword(), 
+            actor.getId(),
+            actor.getUsername(),
+            actor.getEmail(),
+            actor.getPassword(),
         authorities);
   }
 
