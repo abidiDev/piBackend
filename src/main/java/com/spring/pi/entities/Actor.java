@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,6 +26,8 @@ public class Actor implements Serializable {
     private  int phone;
     private String gender;
     private String email;
+    private String username;
+
     private String password;
     private String picture;
     private String address;
@@ -32,7 +35,11 @@ public class Actor implements Serializable {
 
     private ERole role;
 
-
+    public Actor(String username, String email, String password) {
+        this.username=username;
+        this.email=email;
+        this.password=password;
+    }
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Actor second_actor;
 
@@ -52,5 +59,8 @@ public class Actor implements Serializable {
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+
+    private Set<Role> roles = new HashSet<>();
 
 }

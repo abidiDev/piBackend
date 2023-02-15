@@ -1,18 +1,17 @@
 package com.spring.pi.services;
 
+import com.spring.pi.entities.Actor;
 import com.spring.pi.entities.ERole;
 import com.spring.pi.entities.Role;
-import com.spring.pi.entities.User;
 import com.spring.pi.payload.request.LoginRequest;
 import com.spring.pi.payload.request.SignupRequest;
 import com.spring.pi.payload.response.JwtResponse;
 import com.spring.pi.payload.response.MessageResponse;
+import com.spring.pi.repositories.ActorRepository;
 import com.spring.pi.repositories.RoleRepository;
-import com.spring.pi.repositories.UserRepository;
 import com.spring.pi.security.jwt.JwtUtils;
 import com.spring.pi.security.services.UserDetailsImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,7 +32,7 @@ public class AuthServiceImpl implements AuthService{
 
     AuthenticationManager authenticationManager;
 
-    UserRepository userRepository;
+    ActorRepository actorRepository;
 
     RoleRepository roleRepository;
 
@@ -62,20 +61,20 @@ public class AuthServiceImpl implements AuthService{
     }
 
     public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+        if (actorRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (actorRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
+        Actor actor = new Actor(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
@@ -109,8 +108,8 @@ public class AuthServiceImpl implements AuthService{
             });
         }
 
-        user.setRoles(roles);
-        userRepository.save(user);
+        actor.setRoles(roles);
+        actorRepository.save(actor);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
