@@ -24,9 +24,11 @@ import com.spring.pi.security.services.UserDetailsServiceImpl;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {
-  private JwtUtils jwtUtils;
+  @Autowired
+   JwtUtils jwtUtils;
+  @Autowired
 
-  private UserDetailsServiceImpl userDetailsService;
+   UserDetailsServiceImpl userDetailsService;
 
   private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
