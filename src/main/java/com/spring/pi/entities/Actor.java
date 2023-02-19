@@ -1,5 +1,8 @@
 package com.spring.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,13 +47,12 @@ public class Actor implements Serializable {
     private Actor second_actor;
 
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "actors", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Conversation> conversations = new LinkedHashSet<>();
-
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Generic_Message> generic_Messages = new LinkedHashSet<>();
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Agency agency;
