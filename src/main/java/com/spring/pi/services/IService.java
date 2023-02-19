@@ -40,7 +40,7 @@ public interface IService {
     public List<Real_Estate> getAllReal_Estate();
     public Real_Estate getReal_EstateById(long id);
     public House addReal_Estate(House house);
-    public Real_Estate updateReal_Estate(Real_Estate realEstate);
+    public House updateReal_Estate(House house);
     public void deleteReal_Estate(long id);
     /////////////agency/////////////////////////////
     public List<Agency> getAllAgency();

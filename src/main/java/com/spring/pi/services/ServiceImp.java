@@ -172,8 +172,8 @@ public class ServiceImp implements IService{
     }
 
     @Override
-    public Real_Estate updateReal_Estate(Real_Estate realEstate) {
-        return realEstateRepository.save(realEstate);
+    public House updateReal_Estate(House house) {
+        return realEstateRepository.save(house);
 
     }
 

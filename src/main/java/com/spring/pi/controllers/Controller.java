@@ -157,7 +157,7 @@ public class Controller {
     public House addReal_Estate(@RequestBody House house){return iService.addReal_Estate(house);}
     @PutMapping("/updateRealEstate")
     @ResponseBody
-    public Real_Estate updateReal_Estate(@RequestBody Real_Estate realEstate){return iService.updateReal_Estate(realEstate);}
+    public House updateReal_Estate(@RequestBody House house){return iService.updateReal_Estate(house);}
     @DeleteMapping("/deleteRealEstate/{id}")
     @ResponseBody
     public void deleteReal_Estate(@PathVariable long id){iService.deleteReal_Estate(id);}
@@ -208,7 +208,7 @@ public class Controller {
 
     @PutMapping("/updateConversation")
     @ResponseBody
-    public Conversation updateContrat(@RequestBody Conversation c) {
+    public Conversation updateConversation(@RequestBody Conversation c) {
         return iService.updateConversation(c);
     }
 
