@@ -1,11 +1,15 @@
 package com.spring.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -20,20 +24,35 @@ public class Contract implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
     private Boolean valid;
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern="yyyy-MM-dd")
 
-    private Date BeginDate;
-    @Temporal(TemporalType.DATE)
+    private LocalDate BeginDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
 
-    private  Date EndDate;
+    private  LocalDate EndDate;
 
-
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
+    private double revenueM;
 
 
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Transaction> transactions = new LinkedHashSet<>();
+
+    // @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
+    @OneToMany
+    @JoinTable(name = "actor_contrat",
+            joinColumns = {@JoinColumn(name = "contract_id")},
+            inverseJoinColumns = {@JoinColumn(name = "actor_id")}
+    )
+    private List<Actor> actors;
+
+    //@OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private Set<Transaction> transactions = new LinkedHashSet<>();
+
+    @OneToMany
+    @JoinTable(name = "transaction",
+            joinColumns = {@JoinColumn(name = "contract_id")},
+            inverseJoinColumns = {@JoinColumn(name = "real_estate_id")}
+    )
+    private List<Transaction> transactions;
 
 
 }

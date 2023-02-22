@@ -56,9 +56,10 @@ public class Actor implements Serializable {
     private Agency agency;
 
 
-    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
-
+    //@OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Contract contract;
     @ManyToMany(fetch = FetchType.LAZY)
 
     private Set<Role> roles = new HashSet<>();

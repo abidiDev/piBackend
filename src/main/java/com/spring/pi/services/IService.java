@@ -23,6 +23,12 @@ public interface IService {
     public Contract addContract(Contract contract);
     public Contract updateContract(Contract contract);
     public void deleteContract(long id);
+    public String estimerRevenue (Contract contract);
+    public String calculerRevenue (Long id);
+
+
+
+
     /////////////////localisation////////////////
     public Localisation addLoca(Localisation localisation);
     public String deletelocalisation(Long id);

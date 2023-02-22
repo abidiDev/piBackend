@@ -5,6 +5,7 @@ import com.spring.pi.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 @Service
@@ -100,6 +101,22 @@ public class ServiceImp implements IService{
     @Override
     public void deleteContract(long id) {
         contractRepository.deleteById(id);
+
+    }
+
+    @Override
+
+    public String estimerRevenue(Contract contract) {
+        long months= ChronoUnit.MONTHS.between(contract.getBeginDate(), contract.getEndDate());
+        double result=contract.getRevenueM()*months;
+        return "Votre Revenue Total est " +result ;
+
+    }
+    public String calculerRevenue (Long id) {
+        Contract c=getContractById(id);
+        long months= ChronoUnit.MONTHS.between(c.getBeginDate(), c.getEndDate());
+        double result=c.getRevenueM()*months;
+        return "Votre Revenue Total est " +result ;
 
     }
     /////////////localisation/////////////////////
@@ -223,7 +240,9 @@ public class ServiceImp implements IService{
     }
 
     @Override
-    public Actor addActor(Actor actor) {
+    public Actor addActor(Actor actor)
+
+    {
         return actorRepository.save(actor);
     }
 

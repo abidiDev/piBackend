@@ -83,7 +83,13 @@ public class Controller {
     public Contract getContractById(@PathVariable long id){return iService.getContractById(id);}
     @PostMapping("/addContract")
     @ResponseBody
-    public Contract addContract( @RequestBody Contract contract){ return iService.addContract(contract);}
+    public Contract addContract( @RequestBody Contract contract ) { return iService.addContract(contract);}
+    @PostMapping("/calculereRvenue")
+    @ResponseBody
+    public String estimerRevenue( @RequestBody Contract contract ) { return iService.estimerRevenue(contract);}
+    @PostMapping("/calculerRvenue/{id}")
+    @ResponseBody
+    public String calculerRevenue( @PathVariable("id") Long id) { return iService.calculerRevenue(id);}
     @PutMapping("/updateContract")
     @ResponseBody
     public Contract updateContract(@RequestBody  Contract contract){return iService.updateContract(contract);}

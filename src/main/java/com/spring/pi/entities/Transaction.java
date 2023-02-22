@@ -17,11 +17,11 @@ import java.util.Date;
 @Table(name = "transaction")
 public class Transaction implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
-    @Temporal(TemporalType.DATE)
-    private Date dateTrans;
+   private Long id;
+   // @Temporal(TemporalType.DATE)
+   // private Date dateTrans;
 
 
     @ManyToOne
