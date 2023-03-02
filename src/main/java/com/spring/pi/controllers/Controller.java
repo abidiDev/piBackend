@@ -81,15 +81,27 @@ public class Controller {
     @GetMapping("/getContractById/{id}")
     @ResponseBody
     public Contract getContractById(@PathVariable long id){return iService.getContractById(id);}
-    @PostMapping("/addContract")
+    @PostMapping("/z")
     @ResponseBody
     public Contract addContract( @RequestBody Contract contract ) { return iService.addContract(contract);}
-    @PostMapping("/calculereRvenue")
+    @PostMapping("/estimerRevenue")
     @ResponseBody
     public String estimerRevenue( @RequestBody Contract contract ) { return iService.estimerRevenue(contract);}
-    @PostMapping("/calculerRvenue/{id}")
+    @PostMapping("/estimerrprix")
+    @ResponseBody
+    public String estimerrprix ( @RequestBody Contract contract ) { return iService.estimerrprix(contract);}
+    @PostMapping("/estimerROA")
+    @ResponseBody
+    public String estimerROA ( @RequestBody Contract contract ) { return iService.estimerROA(contract);}
+    @GetMapping("/calculerRvenue/{id}")
     @ResponseBody
     public String calculerRevenue( @PathVariable("id") Long id) { return iService.calculerRevenue(id);}
+    @GetMapping("/calculerROA/{id}")
+    @ResponseBody
+    public String calculerROA( @PathVariable("id") Long id) { return iService.calculerROA(id);}
+    @GetMapping("/calculerrprix/{id}")
+    @ResponseBody
+    public String calculerrprix( @PathVariable("id") Long id) { return iService.calculerrprix(id);}
     @PutMapping("/updateContract")
     @ResponseBody
     public Contract updateContract(@RequestBody  Contract contract){return iService.updateContract(contract);}

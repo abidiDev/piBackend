@@ -32,6 +32,8 @@ public class Contract implements Serializable {
     private  LocalDate EndDate;
 
     private double revenueM;
+    private double prixI;
+
 
 
 

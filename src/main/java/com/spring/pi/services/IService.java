@@ -24,7 +24,14 @@ public interface IService {
     public Contract updateContract(Contract contract);
     public void deleteContract(long id);
     public String estimerRevenue (Contract contract);
+    public String estimerROA (Contract contract);
+    public String estimerrprix (Contract contract);
     public String calculerRevenue (Long id);
+    public String calculerROA (Long id);
+    public String calculerrprix (Long id);
+
+
+
 
 
 
