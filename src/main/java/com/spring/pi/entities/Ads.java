@@ -22,7 +22,7 @@ public class Ads implements Serializable {
     private String description;
     private String picture ;
 
-
+  private Boolean favorite;
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Rating> ratings = new LinkedHashSet<>();
 
@@ -44,6 +44,8 @@ public class Ads implements Serializable {
 
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Rating> rating = new LinkedHashSet<>();
+
+
 
 
 }

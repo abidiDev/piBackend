@@ -37,6 +37,9 @@ public class Actor implements Serializable {
     @Enumerated(EnumType.STRING)
 
     private ERole role;
+    private Boolean connected;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
     public Actor(String username, String email, String password) {
         this.username=username;
@@ -64,5 +67,8 @@ public class Actor implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY)
 
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany()
+    private Set<ActorAdsFav> actorAdsFavs = new LinkedHashSet<>();
 
 }

@@ -1,5 +1,8 @@
 package com.spring.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,9 +27,12 @@ public abstract class Real_Estate  implements Serializable {
     private float price;
 
 
+@JsonIgnore
     @OneToOne(mappedBy = "real_Estate", cascade = CascadeType.ALL, orphanRemoval = true)
     private Localisation localisation;
 
+
+    @JsonIgnore
 
     @OneToMany(mappedBy = "real_Estate", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Transaction> transactions = new LinkedHashSet<>();
