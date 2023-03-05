@@ -17,6 +17,7 @@ import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Null;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -113,7 +114,8 @@ public class ChatServiceImpl implements IchatService{
         message.setContent(cr.getContent());
         message.setSpecification(Specification.MESSAGE);
         message.setActor(sender);
-        message.setDate(new Date());
+        message.setDate(LocalDateTime.now());
+        message.setSeen(Boolean.FALSE);
         //conversation of message
         Conversation c=conversationRepository.findById(cr.getIdConversation()).orElse(null);
         //joining
@@ -140,4 +142,30 @@ public class ChatServiceImpl implements IchatService{
         return getConversationMessages(c.getId());
 
     }
+    public ConversationResponse seeMessages(Long idConv){
+
+        Set<Generic_Message> messages=new HashSet<Generic_Message>();
+
+        //getting conversation messages from Generic Messages
+        Conversation c= conversationRepository.findById(idConv).orElse(null);
+        for (Generic_Message message:c.getGeneric_Messages()) {
+            if (message.getSpecification()==(Specification.MESSAGE)&&message.getSeen()==Boolean.FALSE){
+                message.setSeen(Boolean.TRUE);
+
+                message.setSeenDate(LocalDateTime.now());
+
+
+
+            }
+            genericMessageRepository.save(message);
+        }
+        return getConversationMessages(idConv);
+
+    }
+
+    @Override
+    public ConversationResponse respondMessages() {
+        return null;
+    }
+
 }

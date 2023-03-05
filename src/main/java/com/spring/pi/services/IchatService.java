@@ -21,4 +21,9 @@ public interface IchatService {
     public ConversationResponse getConversationMessages(Long idConv);
     public ConversationResponse sendMessage(ConversationRequest cr);
     public ConversationResponse deleteMessage(deleteMessageRequest dr);
+    public ConversationResponse seeMessages(Long idConv);
+
+    public ConversationResponse respondMessages();
+
+
 }

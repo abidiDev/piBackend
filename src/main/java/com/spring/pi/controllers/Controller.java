@@ -155,9 +155,9 @@ public class Controller {
     @PostMapping("/addRealEstate")
     @ResponseBody
     public House addReal_Estate(@RequestBody House house){return iService.addReal_Estate(house);}
-    @PutMapping("/updateRealEstate")
-    @ResponseBody
-    public Real_Estate updateReal_Estate(@RequestBody Real_Estate realEstate){return iService.updateReal_Estate(realEstate);}
+    //@PutMapping("/updateRealEstate")
+    //@ResponseBody
+    //public Real_Estate updateReal_Estate(@RequestBody Real_Estate realEstate){return iService.updateReal_Estate(realEstate);}
     @DeleteMapping("/deleteRealEstate/{id}")
     @ResponseBody
     public void deleteReal_Estate(@PathVariable long id){iService.deleteReal_Estate(id);}

@@ -56,5 +56,11 @@ public class ChatController {
     public ConversationResponse deleteMessage(@RequestBody deleteMessageRequest dr){
         return  ichatService.deleteMessage(dr);
     }
+    @GetMapping("/seeMessages/{idConv}")
+
+    public ConversationResponse seeMessages(@PathVariable Long idConv){
+        return  ichatService.seeMessages(idConv);
+    }
+
 
 }
