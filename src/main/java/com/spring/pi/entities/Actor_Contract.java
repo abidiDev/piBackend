@@ -18,15 +18,13 @@ public class Actor_Contract implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
     @Temporal(TemporalType.DATE)
     private Date date;
+    @ManyToOne
+    private Actor provider;
 
     @ManyToOne
-    private Actor actor;
-
-
-    @ManyToOne
-    private Contract contract;
+    private Actor consumer;
 
 }

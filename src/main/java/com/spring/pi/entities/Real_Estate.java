@@ -32,10 +32,7 @@ public abstract class Real_Estate  implements Serializable {
     private Localisation localisation;
 
 
-    @JsonIgnore
 
-    @OneToMany(mappedBy = "real_Estate", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Transaction> transactions = new LinkedHashSet<>();
 
 
 }

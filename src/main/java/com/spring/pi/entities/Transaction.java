@@ -29,9 +29,7 @@ public class Transaction implements Serializable {
     @ManyToOne
     private Real_Estate real_Estate;
 
-    @ManyToOne
 
-    private Contract contract;
 
 
 }

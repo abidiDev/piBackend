@@ -20,19 +20,23 @@ public class Contract implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
     private Boolean valid;
+
     @Temporal(TemporalType.DATE)
 
-    private Date BeginDate;
+    private Date begin_Date;
     @Temporal(TemporalType.DATE)
 
-    private  Date EndDate;
+    private Date createdDate;
+    @Temporal(TemporalType.DATE)
 
+    private  Date end_Date;
+    private float price_Cont;
 
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
 
 
-    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Transaction> transactions = new LinkedHashSet<>();
 
 
