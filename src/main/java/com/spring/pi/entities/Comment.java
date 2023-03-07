@@ -1,31 +1,29 @@
 package com.spring.pi.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+import java.time.LocalDate;
 @NoArgsConstructor
+@Entity
 @AllArgsConstructor
 @Getter
 @Setter
-
-@Entity
-@Table(name = "rating")
-public class Rating implements Serializable {
+@Table(name = "Comment")
+public class Comment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
-    private int number;
-    private String emogy;
+    private Long idcomm;
+    private String content;
+    private LocalDate createdAt;
 
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonBackReference
+
+    @JoinColumn(name = "ads_id")
     private Ads ads;
 }

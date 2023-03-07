@@ -20,16 +20,18 @@ public class Localisation implements Serializable {
     private Long id;
     private String city;
     private String district;
+    private String street;
+    private long number;
     private float latitude ;
     private float longitude;
 
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(mappedBy = "localisation", cascade = CascadeType.ALL)
     private Real_Estate real_Estate;
 
 
-    @OneToOne(mappedBy = "localisation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "localisation", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Social_Service social_Service;
-
 
 }

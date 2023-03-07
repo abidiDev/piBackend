@@ -27,7 +27,7 @@ public abstract class Real_Estate  implements Serializable {
     private float price;
 
 
-@JsonIgnore
+   @JsonIgnore
     @OneToOne(mappedBy = "real_Estate", cascade = CascadeType.ALL, orphanRemoval = true)
     private Localisation localisation;
 

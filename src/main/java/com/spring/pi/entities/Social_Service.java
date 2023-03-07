@@ -1,5 +1,6 @@
 package com.spring.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Social_Service implements Serializable {
     private String type;
 
 
+    @JsonManagedReference
     @OneToOne(orphanRemoval = true)
     private Localisation localisation;
 }

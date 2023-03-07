@@ -7,10 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,8 +43,7 @@ public class Actor implements Serializable {
         this.email=email;
         this.password=password;
     }
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Actor second_actor;
+
 
 
     @JsonBackReference
@@ -70,5 +66,9 @@ public class Actor implements Serializable {
 
     @OneToMany()
     private Set<ActorAdsFav> actorAdsFavs = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Ads> adses = new ArrayList<>();
 
 }
