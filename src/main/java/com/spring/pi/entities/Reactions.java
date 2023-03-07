@@ -23,7 +23,7 @@ public class Reactions implements Serializable {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "forumpub_id")
-    private ForumPublication forumpub;
+    private ForumPublication forumPublication;
 
     @ManyToOne
     @JsonIgnore

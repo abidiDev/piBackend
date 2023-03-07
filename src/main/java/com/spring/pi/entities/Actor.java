@@ -91,4 +91,7 @@ public class Actor implements Serializable {
     @JsonIgnore
     Set<Reactions> reacts;
 
+    @OneToMany()
+    private List<Actor_construction> actorConstructionList;
+
 }
