@@ -1,6 +1,8 @@
 package com.spring.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,14 +34,14 @@ public class Contract implements Serializable {
     private  LocalDate EndDate;
 
     private double revenueM;
-    private double prixI;
 
-
+    private double PrixI;
 
 
     // @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL, orphanRemoval = true)
     //private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
-    @OneToMany
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "actor_contrat",
             joinColumns = {@JoinColumn(name = "contract_id")},
             inverseJoinColumns = {@JoinColumn(name = "actor_id")}

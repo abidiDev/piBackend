@@ -81,7 +81,7 @@ public class Controller {
     @GetMapping("/getContractById/{id}")
     @ResponseBody
     public Contract getContractById(@PathVariable long id){return iService.getContractById(id);}
-    @PostMapping("/z")
+    @PostMapping("/addContract")
     @ResponseBody
     public Contract addContract( @RequestBody Contract contract ) { return iService.addContract(contract);}
     @PostMapping("/estimerRevenue")

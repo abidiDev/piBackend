@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 @Service
@@ -90,9 +91,11 @@ public class ServiceImp implements IService{
 
     @Override
     public Contract addContract(Contract contract) {
+        List <Actor> actorsToPersist = new ArrayList<>();
+        contract.getActors().forEach(element -> actorRepository.findById(element.getId()).ifPresent(actorsToPersist::add));
+        contract.setActors(actorsToPersist);
         return contractRepository.save(contract);
     }
-
     @Override
     public Contract updateContract(Contract contract) {
         return contractRepository.save(contract);

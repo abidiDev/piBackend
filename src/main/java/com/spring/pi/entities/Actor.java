@@ -1,13 +1,13 @@
 package com.spring.pi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -58,8 +58,11 @@ public class Actor implements Serializable {
 
     //@OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     //private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Contract contract;
+    @ManyToMany(mappedBy = "actors")
+    @JsonIgnore
+    private List<Contract> contracts;
+
+
     @ManyToMany(fetch = FetchType.LAZY)
 
     private Set<Role> roles = new HashSet<>();
