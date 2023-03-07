@@ -35,6 +35,8 @@ public class Actor implements Serializable {
 
     private ERole role;
     private Boolean connected;
+    private String Badge;
+    private boolean blocked=false;
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
@@ -57,7 +59,7 @@ public class Actor implements Serializable {
     private Agency agency;
 
 
-    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -70,5 +72,23 @@ public class Actor implements Serializable {
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Ads> adses = new ArrayList<>();
+
+
+
+    @ManyToMany
+    @JsonIgnore
+    Set<Comment> Comments;
+    @OneToMany(mappedBy = "usersf")
+    Set<ForumPublication> userforums;
+    @OneToMany(mappedBy = "usersc")
+    @JsonIgnore
+    Set<Comment> usercomments;
+    @OneToMany(mappedBy = "utilisateur")
+    @JsonIgnore
+    Set<Notification> notifs;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    Set<Reactions> reacts;
 
 }

@@ -1,6 +1,7 @@
 package com.spring.pi.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,4 +27,11 @@ public class Comment implements Serializable {
 
     @JoinColumn(name = "ads_id")
     private Ads ads;
+
+    @ManyToOne
+    @JsonIgnore
+    private ForumPublication forum;
+    @ManyToOne
+    @JsonIgnore
+    Actor usersc;
 }
