@@ -7,9 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -24,13 +26,16 @@ public class Generic_Message  implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-   private String content;
+    private String content;
     @Enumerated(EnumType.STRING)
 
     private Specification specification ;
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime date;
 
+    private Boolean seen;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime seenDate;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ads_id")
     private Ads ads;

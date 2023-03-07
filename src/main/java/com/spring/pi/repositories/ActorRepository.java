@@ -11,4 +11,9 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+
+
+    public Actor findActorByResetPasswordToken(String token);
+
+    Actor findActorByEmail(String email);
 }
