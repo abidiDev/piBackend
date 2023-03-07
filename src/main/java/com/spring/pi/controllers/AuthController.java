@@ -2,9 +2,6 @@ package com.spring.pi.controllers;
 
 import javax.validation.Valid;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.spring.pi.entities.Actor;
 import com.spring.pi.entities.notMapped.EmailDetails;
 import com.spring.pi.payload.request.LoginRequest;
