@@ -18,6 +18,7 @@ public class Localisation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    private String state;
     private String city;
     private String district;
     private String street;
