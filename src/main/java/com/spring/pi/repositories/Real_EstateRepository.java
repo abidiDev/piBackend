@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+
 public interface Real_EstateRepository extends JpaRepository<Real_Estate, Long> {
     @Query("SELECT h FROM House h")
     List<House> HousesList();

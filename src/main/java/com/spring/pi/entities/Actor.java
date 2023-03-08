@@ -35,8 +35,11 @@ public class Actor implements Serializable {
 
     private ERole role;
     private Boolean connected;
+<<<<<<< HEAD
     private String Badge;
     private boolean blocked=false;
+=======
+>>>>>>> userModule
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
@@ -47,7 +50,10 @@ public class Actor implements Serializable {
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> userModule
     @JsonBackReference
     @ManyToMany(mappedBy = "actors", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Conversation> conversations = new LinkedHashSet<>();
@@ -93,5 +99,6 @@ public class Actor implements Serializable {
 
     @OneToMany()
     private List<Actor_construction> actorConstructionList;
+
 
 }

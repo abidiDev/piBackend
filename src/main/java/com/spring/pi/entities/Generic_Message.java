@@ -27,6 +27,7 @@ public class Generic_Message  implements Serializable {
     private Long id;
 
    private String content;
+
     @Enumerated(EnumType.STRING)
 
     private Specification specification ;

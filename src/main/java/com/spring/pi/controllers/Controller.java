@@ -155,9 +155,11 @@ public class Controller {
     @PostMapping("/addRealEstate")
     @ResponseBody
     public House addReal_Estate(@RequestBody House house){return iService.addReal_Estate(house);}
+<<<<<<< HEAD
     @PutMapping("/updateRealEstate")
     @ResponseBody
     public House updateReal_Estate(@RequestBody House house){return iService.updateReal_Estate(house);}
+
     @DeleteMapping("/deleteRealEstate/{id}")
     @ResponseBody
     public void deleteReal_Estate(@PathVariable long id){iService.deleteReal_Estate(id);}
