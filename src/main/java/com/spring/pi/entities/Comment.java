@@ -23,15 +23,12 @@ public class Comment implements Serializable {
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
-
-    @JoinColumn(name = "ads_id")
+    @JsonBackReference(value="test3")
     private Ads ads;
 
+
     @ManyToOne
+    @JoinColumn(name = "user_id")
     @JsonIgnore
-    private ForumPublication forum;
-    @ManyToOne
-    @JsonIgnore
-    Actor usersc;
+    Actor user;
 }

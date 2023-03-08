@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,10 +25,13 @@ public class Social_Service implements Serializable {
 
     private String name;
     private String description;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TypeSS typess;
 
 
-    @JsonManagedReference
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
+@JsonManagedReference(value="test4")
     private Localisation localisation;
+
+
 }

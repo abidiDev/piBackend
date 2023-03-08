@@ -1,13 +1,18 @@
 package com.spring.pi.repositories;
 
 import com.spring.pi.entities.*;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
 
 import java.util.List;
 
+
 public interface Real_EstateRepository extends JpaRepository<Real_Estate, Long> {
+   public List<Real_Estate>  findReal_EstateByLocalisation_City(String city);
+
+
     @Query("SELECT h FROM House h")
     List<House> HousesList();
 
@@ -22,4 +27,5 @@ public interface Real_EstateRepository extends JpaRepository<Real_Estate, Long> 
     List<Commercial_Property> CommercialPList();
     @Query("SELECT o FROM Office_Center o")
     List<Office_Center> OfficesCList();
-}
+ }
+

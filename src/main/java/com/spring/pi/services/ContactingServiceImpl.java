@@ -12,6 +12,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 @Service
 public class ContactingServiceImpl implements ContactingService{
@@ -29,17 +30,19 @@ public class ContactingServiceImpl implements ContactingService{
         try {
 
             // Creating a simple mail message
-            SimpleMailMessage mailMessage
-                    = new SimpleMailMessage();
+
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper mailMessage = new MimeMessageHelper(message, true);
 
             // Setting up necessary details
             mailMessage.setFrom(sender);
             mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
+            mailMessage.setText(details.getMsgBody(),true);
             mailMessage.setSubject(details.getSubject());
 
             // Sending the mail
-            javaMailSender.send(mailMessage);
+            javaMailSender.send(message);
+            javaMailSender.send((MimeMessagePreparator) mailMessage);
             return "Mail Sent Successfully...";
         }
 
