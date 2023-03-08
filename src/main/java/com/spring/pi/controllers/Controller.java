@@ -163,6 +163,7 @@ public class Controller {
     @ResponseBody
     public Real_Estate updateReal_Estate(@RequestBody RealestateRequest realEstate)
     {return iService.addReal_Estate(realEstate);}
+
     @DeleteMapping("/deleteRealEstate/{id}")
     @ResponseBody
     public void deleteReal_Estate(@PathVariable long id){iService.deleteReal_Estate(id);}

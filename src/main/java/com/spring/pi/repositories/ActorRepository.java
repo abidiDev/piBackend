@@ -17,4 +17,5 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
     public Actor findActorByEmail(String email);
 
     public Actor findActorByResetPasswordToken(String token);
+
 }

@@ -37,6 +37,7 @@ public class Actor implements Serializable {
     private Boolean connected;
     private String Badge;
     private boolean blocked=false;
+
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
@@ -74,11 +75,6 @@ public class Actor implements Serializable {
     private List<Ads> adses = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "usersf")
-    Set<ForumPublication> userforums;
-    @OneToMany(mappedBy = "usersc")
-    @JsonIgnore
-    Set<Comment> usercomments;
     @OneToMany(mappedBy = "utilisateur")
     @JsonIgnore
     Set<Notification> notifs;
@@ -89,5 +85,6 @@ public class Actor implements Serializable {
 
     @OneToMany()
     private List<Actor_construction> actorConstructionList;
+
 
 }

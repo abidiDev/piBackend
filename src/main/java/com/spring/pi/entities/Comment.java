@@ -26,10 +26,9 @@ public class Comment implements Serializable {
     @JsonBackReference(value="test3")
     private Ads ads;
 
+
     @ManyToOne
+    @JoinColumn(name = "user_id")
     @JsonIgnore
-    private ForumPublication forum;
-    @ManyToOne
-    @JsonIgnore
-    Actor usersc;
+    Actor user;
 }

@@ -61,7 +61,7 @@ public class ControllerAds {
         return ResponseEntity.ok(ads);
     }
 
-    @GetMapping("/ads/countByType")
+    @GetMapping("/ads/StatisticByType")
     @ResponseBody
     public String countAdsByType() {
         List<Ads> ads = adsRepository.findAll();

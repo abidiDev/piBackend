@@ -24,7 +24,7 @@ public class ForumPublication implements Serializable {
     private LocalDate date_pub;
 
     // @JsonManagedReference
-    @OneToMany(mappedBy = "forum")
+    @OneToMany()
 
     Set<Comment> comments;
 

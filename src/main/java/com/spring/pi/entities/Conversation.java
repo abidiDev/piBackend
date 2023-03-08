@@ -26,6 +26,7 @@ public class Conversation implements Serializable {
 
     @ManyToMany
     @JsonIgnore
+
     private List<Actor> actors = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
