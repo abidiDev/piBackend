@@ -35,11 +35,9 @@ public class Actor implements Serializable {
 
     private ERole role;
     private Boolean connected;
-<<<<<<< HEAD
     private String Badge;
     private boolean blocked=false;
-=======
->>>>>>> userModule
+
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
@@ -50,14 +48,9 @@ public class Actor implements Serializable {
     }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> userModule
-    @JsonBackReference
     @ManyToMany(mappedBy = "actors", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Conversation> conversations = new LinkedHashSet<>();
-    @JsonBackReference
+    @JsonManagedReference(value="test6")
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Generic_Message> generic_Messages = new LinkedHashSet<>();
 
@@ -79,16 +72,6 @@ public class Actor implements Serializable {
     @JsonIgnore
     private List<Ads> adses = new ArrayList<>();
 
-
-
-    @ManyToMany
-    @JsonIgnore
-    Set<Comment> Comments;
-    @OneToMany(mappedBy = "usersf")
-    Set<ForumPublication> userforums;
-    @OneToMany(mappedBy = "usersc")
-    @JsonIgnore
-    Set<Comment> usercomments;
     @OneToMany(mappedBy = "utilisateur")
     @JsonIgnore
     Set<Notification> notifs;
