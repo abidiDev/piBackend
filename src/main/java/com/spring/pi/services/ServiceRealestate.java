@@ -99,9 +99,6 @@ IService iService;
 
             Optional<Real_Estate> optionalRealEstate = realEstateRepository.findById(idRealestate);
 
-            if (optionalRealEstate.isEmpty()) {
-                throw new IllegalArgumentException("Invalid RealEstate ID.");
-            }
 
             Real_Estate realEstate = optionalRealEstate.get();
             double price = realEstate.getPrice();
