@@ -43,7 +43,8 @@ public class Generic_Message  implements Serializable {
     @ManyToOne
     @JoinColumn(name = "actor_id")
     //@JsonBackReference
-    @JsonManagedReference
+    @JsonBackReference(value="test6")
+
     private Actor actor;
 
     public Ads getAds() {

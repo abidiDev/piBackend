@@ -1,6 +1,7 @@
 package com.spring.pi.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -24,10 +25,8 @@ public class Conversation implements Serializable {
    private Date date ;
 
     @ManyToMany
-    @JsonManagedReference
-
+    @JsonIgnore
     private List<Actor> actors = new ArrayList<>();
-
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Generic_Message> generic_Messages = new LinkedHashSet<>();

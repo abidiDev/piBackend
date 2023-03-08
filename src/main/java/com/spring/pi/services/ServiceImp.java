@@ -1,6 +1,7 @@
 package com.spring.pi.services;
 
 import com.spring.pi.entities.*;
+import com.spring.pi.payload.request.RealestateRequest;
 import com.spring.pi.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -167,15 +168,43 @@ public class ServiceImp implements IService{
     }
 
     @Override
-    public House addReal_Estate(House house) {
-        return realEstateRepository.save(house);
+    public  Real_Estate addReal_Estate(RealestateRequest request) {
+       // List<? extends Real_Estate>
+        Real_Estate realEstate=null;
+        switch (request.getType()) {
+            case "House":
+                House house = realEstateRepository.save(request.getHouse());
+                realEstate=house;
+                break;
+            case "Building":
+                Building building = realEstateRepository.save(request.getBuilding());
+                realEstate=building;
+                break;
+            case "Parking":
+                Parking parking = realEstateRepository.save(request.getParking());
+                realEstate=parking;
+                break;
+            case "Ground":
+                Ground ground = realEstateRepository.save(request.getGround());
+                realEstate=ground;
+                break;
+            case "OfficeCenter":
+                Office_Center officeCenter = realEstateRepository.save(request.getOfficeCenter());
+                realEstate=officeCenter;
+                break;
+            case "CommercialProperty":
+                Commercial_Property commercialProperty = realEstateRepository.save(request.getCommercialProperty());
+                realEstate=commercialProperty;
+                break;
+            default:
+                // Handle invalid type here
+                break;
+        }
+     return realEstate;
+
     }
 
-    @Override
-    public House updateReal_Estate(House house) {
-        return realEstateRepository.save(house);
 
-    }
 
     @Override
     public void deleteReal_Estate(long id) {
