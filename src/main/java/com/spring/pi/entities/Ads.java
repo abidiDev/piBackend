@@ -50,13 +50,13 @@ public class Ads implements Serializable {
     @JsonManagedReference
     private Set<Rating> rating = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL)
+    /*@OneToMany(mappedBy = "ads", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();*/
 
 
 
 
-
+//d9i9a hnai jeya
 
 }

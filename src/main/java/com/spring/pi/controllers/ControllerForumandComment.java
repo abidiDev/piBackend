@@ -109,17 +109,19 @@ public class ControllerForumandComment {
     }
 
     ///////////////////Forum////////////////////////////////
-    @PostMapping("/addforum/{iduser}")
+    ///{iduser}
+    @PostMapping("/addforum")
     @ResponseBody
     public ResponseEntity<ForumPublication> addforumandassigntouser(@RequestBody ForumPublication forum, @PathVariable("iduser")Long userid) throws IOException {
         Notification nf = new Notification();
-        Actor user=userRepository.findById(userid).orElse(null);
+       Actor user=userRepository.findById(userid).orElse(null);
 
         if(containsbadword(forum.getObject())||containsbadword(forum.getTopic()) ) {
             nf.setCreatedAt(LocalDate.now());
             nf.setMessage("using bad word in the forum");
             notificationRepository.save(nf);
-            nf.setUtilisateur(user);
+            nf.setUtilisateur(forum.getUsersf());
+           nf.setUtilisateur(user);
 
             return ResponseEntity.badRequest().build();
 

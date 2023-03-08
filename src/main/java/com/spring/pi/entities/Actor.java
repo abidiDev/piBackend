@@ -69,20 +69,13 @@ public class Actor implements Serializable {
     @OneToMany()
     private Set<ActorAdsFav> actorAdsFavs = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @OneToMany
     private List<Ads> adses = new ArrayList<>();
 
 
 
-    @ManyToMany
-    @JsonIgnore
-    Set<Comment> Comments;
-    @OneToMany(mappedBy = "usersf")
-    Set<ForumPublication> userforums;
-    @OneToMany(mappedBy = "usersc")
-    @JsonIgnore
-    Set<Comment> usercomments;
+
+
     @OneToMany(mappedBy = "utilisateur")
     @JsonIgnore
     Set<Notification> notifs;

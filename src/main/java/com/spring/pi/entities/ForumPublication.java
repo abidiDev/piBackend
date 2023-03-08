@@ -1,6 +1,8 @@
 package com.spring.pi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +15,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "ForumPublication")
 public class ForumPublication implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,18 +24,15 @@ public class ForumPublication implements Serializable {
     private String topic;
     private LocalDate date_pub;
 
-    // @JsonManagedReference
-    @OneToMany(mappedBy = "forum")
-
+    @OneToMany
     Set<Comment> comments;
 
-    @OneToMany(mappedBy = "forumPublication")
+    @OneToMany(mappedBy = "forumpublication")
     @JsonIgnore
-
-    // @JsonManagedReference
     Set<Reactions> reactions;
 
     @ManyToOne
     @JsonIgnore
     Actor usersf;
+
 }
