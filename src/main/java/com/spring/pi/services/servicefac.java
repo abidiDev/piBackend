@@ -9,15 +9,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 @Slf4j
-public class servicefac implements IServicefac{
+public class servicefac implements IServicefac {
     @Autowired
     SwearWordService swearWordService;
     @Autowired
@@ -35,15 +37,16 @@ public class servicefac implements IServicefac{
     @Autowired
     ActorRepository userRepository;
     @Value("e857976851bb8276a4f56727e4268629")
-    private  String Service_TWILIO_AUTH_TOKEN;
+    private String Service_TWILIO_AUTH_TOKEN;
     @Value("ACa4c676fc1aecd1858d5ee6ccb0f61750")
-    private  String Service_TWILIO_ACCOUNT_SID;
+    private String Service_TWILIO_ACCOUNT_SID;
+
     @Async
     @Override
     public String SendSms(String Phone, String message) {
         Twilio.init(Service_TWILIO_ACCOUNT_SID, Service_TWILIO_AUTH_TOKEN);
         Message.creator(new PhoneNumber(Phone),
-                new PhoneNumber("+21696907231"), message).create();//15673392016
+                new PhoneNumber("+15673392016"), message).create();//15673392016
 
         log.info("Sms Send");
         return "Message sent successfully";
@@ -52,23 +55,30 @@ public class servicefac implements IServicefac{
     @Override
     @Transactional
     public Comment addcommentandassigntoPublicationanduser(Comment c, Long idforum, Long iduser) throws IOException {
-        commentRepository.save(c);
+
         ForumPublication forumpub = forumPublicationRepository.findById(idforum).orElse(null);
-        Actor user=userRepository.findById(iduser).orElse(null);
+        Actor user = userRepository.findById(iduser).orElse(null);
+        while (user.isBlocked()==false){
         forumpub.getComments().add(c);
         c.setUser(user);
         c.setCreatedAt(LocalDate.now());
 
-        return commentRepository.save(c);
+        return commentRepository.save(c);}
+        Comment blockedComment = new Comment();
+        blockedComment.setContent("This user is blocked and cannot add a comment.");
+        c.setCreatedAt(LocalDate.now());
+
+        return blockedComment;
     }
 
     @Override
     public Comment updatecomment(Comment comment, Long idcomm) {
-        Comment savedcomm= commentRepository.findById(idcomm).orElse(null);
+        Comment savedcomm = commentRepository.findById(idcomm).orElse(null);
         savedcomm.setContent(comment.getContent());
         savedcomm.setCreatedAt(LocalDate.now());
 
-        return    commentRepository.save(savedcomm);     }
+        return commentRepository.save(savedcomm);
+    }
 
     @Override
     public void deleteComment(Long id) {
@@ -78,34 +88,41 @@ public class servicefac implements IServicefac{
 
     @Override
     public int getnbrecommentdansunforum(Long forumid) {
-        ForumPublication f=forumPublicationRepository.findById(forumid).orElse(null);
-     return    f.getComments().size();    }
+        ForumPublication f = forumPublicationRepository.findById(forumid).orElse(null);
+        return f.getComments().size();
+    }
 
 
     @Override
     @Transactional
 
-    public ForumPublication addforumandassigntouser(ForumPublication forum, Long userid) {
-       Actor user = userRepository.findById(userid).orElse(null);
-        forum.setDate_pub(LocalDate.now());
+    public ForumPublication addforumandassigntouser(ForumPublication forum, Long iduser) {
+        Actor user = userRepository.findById(iduser).orElse(null);
+        while (user.isBlocked()==false){ forum.setDate_pub(LocalDate.now());
 
         forum.setUsersf(user);
-        return forumPublicationRepository.save(forum);
+        return forumPublicationRepository.save(forum);}
+        ForumPublication blocked = new ForumPublication();
+        blocked.setTopic("This user is blocked and cannot add a forum.");
+
+        return blocked;
     }
 
     @Override
     public ForumPublication updateforum(ForumPublication forum, Long idforum) {
-        ForumPublication savedforum= forumPublicationRepository.findById(idforum).orElse(null);
+        ForumPublication savedforum = forumPublicationRepository.findById(idforum).orElse(null);
         savedforum.setObject(forum.getObject());
         savedforum.setTopic(forum.getTopic());
         savedforum.setDate_pub(LocalDate.now());
 
         savedforum.setObject(savedforum.getObject());
-        return    forumPublicationRepository.save(savedforum);    }
+        return forumPublicationRepository.save(savedforum);
+    }
 
     @Override
     public List<ForumPublication> getForumpub() {
-        return forumPublicationRepository.findAll();      }
+        return forumPublicationRepository.findAll();
+    }
 
     @Override
     public void deleteforum(Long id) {
@@ -115,21 +132,27 @@ public class servicefac implements IServicefac{
 
     @Override
     public Long nbrelikes(Long idforum) {
-        return repository.countReactionssurunforum(TypeReaction.like,idforum);
+        return repository.countReactionssurunforum(TypeReaction.like, idforum);
     }
 
     @Override
     public Long nbredislikes(Long idforum) {
-        return repository.countReactionssurunforum(TypeReaction.dislike,idforum);     }
+        return repository.countReactionssurunforum(TypeReaction.dislike, idforum);
+    }
+
+    @Override
+    public void deletereaction(Integer id) {
+        repository.deleteById(id);
+    }
 
     @Override
     public String checkIfUserShouldBeBlocked(Long userid) {
-        int tentatif=tentatifbadword(userid);
-        if(tentatif>=3){
-            Actor user=userRepository.findById(userid).orElse(null);
+        int tentatif = tentatifbadword(userid);
+        if (tentatif >= 3) {
+            Actor user = userRepository.findById(userid).orElse(null);
             user.setBlocked(true);
             userRepository.save(user);
-            return "this user should be blocked with  tentatif number : "+""+tentatif;
+            return "this user should be blocked with  tentatif number : " + " " + tentatif;
         }
         return null;
     }
@@ -137,15 +160,26 @@ public class servicefac implements IServicefac{
     @Override
     public Reactions ajouteretassocierunereactionaforumetuser(Reactions r, Long forum, Long iduser) {
         ForumPublication forumpub = forumPublicationRepository.findById(forum).orElse(null);
-        Actor c=userRepository.findById(iduser).orElse(null);
-        Reactions existingReaction =  repository.findByUserAndForumpublication(c,forumpub);
-        if(existingReaction ==null)
-        {
+        Actor c = userRepository.findById(iduser).orElse(null);
+        while (c.isBlocked()==false){
+        Reactions existingReaction = repository.findByUserAndForumpublication(c, forumpub);
+        if (existingReaction == null || r.getTypeReaction() == null) {
             r.setForumpublication(forumpub);
             r.setUser(c);
             return repository.save(r);
-        }else
-            return existingReaction;    }
+        } else
+            return existingReaction;}
+        return new Reactions();
+
+    }
+
+    @Scheduled(cron = "0 0 0 * * MON")
+    @Override
+    public void deleteOldNotifications() {
+        LocalDate threLocalDate = LocalDate.now().minusWeeks(1);
+        notificationRepository.deleteByCreatedAtBefore(threLocalDate);
+
+    }
 
     @Override
     public int tentatifbadword(Long iduser) {
@@ -153,39 +187,44 @@ public class servicefac implements IServicefac{
     }
 
     @Override
-    public Reactions reactionupdate(Reactions r, Long id) {
-        return null;
+    public Reactions reactionupdate(Reactions r, Integer id) {
+        Reactions savedreaction = repository.findById(id).orElse(null);
+        savedreaction.setTypeReaction(r.getTypeReaction());
+        return repository.save(savedreaction);
     }
 
     @Override
     public List<ForumPublication> rechercherParMot(String mot) {
-        return forumPublicationRepository.findByObjectContainingIgnoreCaseOrTopicContainingIgnoreCaseOrCommentsContentContainingIgnoreCase(mot,mot,mot);
+        return forumPublicationRepository.findByObjectContainingIgnoreCaseOrTopicContainingIgnoreCaseOrCommentsContentContainingIgnoreCase(mot, mot, mot);
     }
 
 
     @Override
     public String assignBadgeToUser(Long user) {
-        Actor actor =userRepository.findById(user).orElse(null);
-        int activitypoints=0;
-        int numforumadded=forumPublicationRepository.findByUsersfId(user).size();
-        int reactionsadded=repository.findByUserId(user).size();
-        int numcommentadded=commentRepository.findByUserId(user).size();
+        Actor actor = userRepository.findById(user).orElse(null);
+        int activitypoints = 0;
+        int numforumadded = forumPublicationRepository.findByUsersfId(user).size();
+        int reactionsadded = repository.findByUserId(user).size();
+        int numcommentadded = commentRepository.findByUserId(user).size();
         activitypoints += numcommentadded * 2;
         activitypoints += numforumadded * 3;
         activitypoints += reactionsadded * 1;
         String Badge;
-
-        if (activitypoints >= 100) {
-            Badge="Gold";
-        } else if (activitypoints >= 50) {
-            Badge="Silver";
-        } else if (activitypoints >= 20) {
-            Badge="Bronze";
-        } else {
-            Badge="Begginer";
-        }
-        actor.setBadge(Badge);
-        userRepository.save(actor);
-        return Badge;}
+        while (actor.isBlocked() == false) {
+            if (activitypoints >= 100) {
+                Badge = "Gold";
+            } else if (activitypoints >= 50) {
+                Badge = "Silver";
+            } else if (activitypoints >= 20) {
+                Badge = "Bronze";
+            } else {
+                Badge = "Begginer";
+            }
+            actor.setBadge(Badge);
+            userRepository.save(actor);
+            return Badge + " " + "with Score :" + activitypoints;
+        }return "This user is already blocked  ";
+    }
 }
+
 

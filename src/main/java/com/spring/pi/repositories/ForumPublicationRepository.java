@@ -8,5 +8,6 @@ import java.util.List;
 public interface ForumPublicationRepository extends JpaRepository<ForumPublication,Long> {
     List<ForumPublication>findByUsersfId(Long id);
 
-    List<ForumPublication> findByObjectContainingIgnoreCaseOrTopicContainingIgnoreCaseOrCommentsContentContainingIgnoreCase(String mot, String mot2, String mot3);
+   List<ForumPublication> findByObjectContainingIgnoreCaseOrTopicContainingIgnoreCaseOrCommentsContentContainingIgnoreCase(String mot, String mot2, String mot3);
+
 }

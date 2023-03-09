@@ -24,16 +24,18 @@ public interface IServicefac {
     public void deleteforum (Long id );
     public Long nbrelikes(Long idforum);
     public Long nbredislikes(Long idforum);
+    public void deletereaction (Integer id );
 
     public String checkIfUserShouldBeBlocked(Long userid);
 
     public Reactions ajouteretassocierunereactionaforumetuser(Reactions r, Long forum, Long iduser);
+    public void deleteOldNotifications();
 
 
     public int tentatifbadword(Long iduser) ;
 
 
-    public Reactions reactionupdate(Reactions r, Long id);
+    public Reactions reactionupdate(Reactions r, Integer id);
 
     public List<ForumPublication> rechercherParMot(String mot);
 

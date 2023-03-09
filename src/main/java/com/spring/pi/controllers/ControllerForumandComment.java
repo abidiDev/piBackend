@@ -40,13 +40,7 @@ public class ControllerForumandComment {
 //////////////////////////////////////////////////////COMMENT///////////////////////////////////////////////////////////
 
 
-    public boolean containsbadword(String content)throws IOException {
-        List<String> badwords =swearWordService.getSwearWords();
-        for(String word :badwords)
-        {if (content.contains(word))
-            return true;}
-        return false;
-    }
+
 
     @PostMapping("ajoutercomm/{idf}/{iduser}")
     public ResponseEntity<Comment> addcommentandassigntoPublication(@RequestBody Comment c, @PathVariable("idf") Long idforum, @PathVariable("iduser") Long iduser) throws IOException {
@@ -69,7 +63,7 @@ public class ControllerForumandComment {
         }
 
         Comment addedcomment=iService.addcommentandassigntoPublicationanduser(c,idforum,iduser);
-        iService.SendSms("+21696907231","a new comment was added");
+        iService.SendSms("+21694745442","a new comment was added");
         return ResponseEntity.ok(addedcomment);
     }
 
@@ -110,15 +104,16 @@ public class ControllerForumandComment {
 
     ///////////////////Forum////////////////////////////////
     ///{iduser}
-    @PostMapping("/addforum")
+    @PostMapping("/addforum/{iduser}")
     @ResponseBody
-    public ResponseEntity<ForumPublication> addforumandassigntouser(@RequestBody ForumPublication forum, @PathVariable("iduser")Long userid) throws IOException {
+    public ResponseEntity<ForumPublication> addforumandassigntouser(@RequestBody ForumPublication forum, @PathVariable("iduser")Long iduser) throws IOException {
         Notification nf = new Notification();
-       Actor user=userRepository.findById(userid).orElse(null);
+       Actor user=userRepository.findById(iduser).orElse(null);
 
         if(containsbadword(forum.getObject())||containsbadword(forum.getTopic()) ) {
             nf.setCreatedAt(LocalDate.now());
             nf.setMessage("using bad word in the forum");
+            nf.setUtilisateur(user);
             notificationRepository.save(nf);
             nf.setUtilisateur(forum.getUsersf());
            nf.setUtilisateur(user);
@@ -127,10 +122,13 @@ public class ControllerForumandComment {
 
 
         }
-        ForumPublication add=iService.addforumandassigntouser(forum,userid);
+        ForumPublication add=iService.addforumandassigntouser(forum,iduser);
 
         return ResponseEntity.ok(add);
     }
+    @PutMapping("/updatereact/{id}")
+    @ResponseBody
+    public Reactions reactionupdate(@RequestBody Reactions r, @PathVariable("id")Integer id) {return iService.reactionupdate(r,id);}
 
     @PutMapping("/updateforum/{id}")
     @ResponseBody
@@ -142,6 +140,14 @@ public class ControllerForumandComment {
     @ResponseBody
     public void deleteforum(@PathVariable Long id) {
         iService.deleteforum(id);
+    }
+    @DeleteMapping("/deletenotif")
+    @ResponseBody
+    public void deleteOldNotifications(){iService.deleteOldNotifications();}
+    @DeleteMapping("/deletereaction/{id}")
+    @ResponseBody
+    public void deletereaction(@PathVariable Integer id) {
+        iService.deletereaction(id);
     }
 
     @GetMapping("/getAllForums")
@@ -178,6 +184,13 @@ public class ControllerForumandComment {
     public String checkIfUserShouldBeBlocked(@PathVariable("id")Long userid) {
 
         return   iService.checkIfUserShouldBeBlocked(userid);
+    }
+    public boolean containsbadword(String content)throws IOException {
+        List<String> badwords =swearWordService.getSwearWords();
+        for(String word :badwords)
+        {if (content.contains(word))
+            return true;}
+        return false;
     }
     @GetMapping("/badge/{id}")
     public String assignBadgeToUser(@PathVariable("id")Long user) {

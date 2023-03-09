@@ -48,11 +48,10 @@ public class Actor implements Serializable {
 
 
 
-    @JsonBackReference
+
     @ManyToMany(mappedBy = "actors", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Conversation> conversations = new LinkedHashSet<>();
-    @JsonBackReference
-    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value="test6")    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Generic_Message> generic_Messages = new LinkedHashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
