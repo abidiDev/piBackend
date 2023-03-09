@@ -18,5 +18,8 @@ public class ContractRequest {
      private LocalDate end_Date;
     private LocalDate createdDate;
     private float price_Cont;
+    private float revenue;
+
+
     private Date DateTrans;
 }

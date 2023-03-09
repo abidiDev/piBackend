@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,9 @@ public class SellBuyModuleServiceImpl implements SellBuyModuleService {
     ActorRepository actorRepository;
     TransactionRepository transactionRepository;
     ContactingService contactingService;
+
+    IService IService;
+
 
     @Override
     public Contract addAndAssignContractToRealEstateAndActorContract(ContractRequest contractRequest) {
@@ -40,6 +44,7 @@ public class SellBuyModuleServiceImpl implements SellBuyModuleService {
         c.setEnd_Date(contractRequest.getEnd_Date());
         c.setCreatedDate(contractRequest.getCreatedDate());
         c.setPrice_Cont(contractRequest.getPrice_Cont());
+        c.setRevenue(contractRequest.getRevenue());
         c.setValid(false);
         Transaction t = new Transaction();
         transactionRepository.save(t);
@@ -119,6 +124,98 @@ public class SellBuyModuleServiceImpl implements SellBuyModuleService {
 
         }
     }
+
+    public String estimerRevenue(Contract contract ) {
+        long months= ChronoUnit.MONTHS.between(contract.getBegin_Date(), contract.getEnd_Date());
+        double result=contract.getRevenue()*months;
+
+
+        return "Votre Revenue Estime Total est " +result ;
+
+    }
+
+    public String estimerROA(Contract contract) {
+        long months= ChronoUnit.MONTHS.between(contract.getBegin_Date(), contract.getEnd_Date());
+        double result=contract.getRevenue()*months;
+        double P=contract.getPrice_Cont();
+        double ROA=(result-P)/P*100;
+        return "Votre ROA Estime Total est %"  +ROA ;
+
+    }
+
+    public String estimerrprix(Contract contract) {
+        int yb=contract.getBegin_Date().getYear();
+        int y;
+        int month=contract.getBegin_Date().getMonthValue();
+        int i=0;
+        double total=0;
+        double P=contract.getPrice_Cont();
+        double result=contract.getRevenue();
+
+        do {
+            i = i + 1;
+
+            total = total + result;
+        }
+        while (P > total);
+
+        month = month + i;
+        y=yb;
+        if (month > 12)
+            do {
+                month = month - 12;
+                y = y + 1;
+
+            } while (month > 12);
+
+
+        return "le mois et l'annee estimé  du return de votre capital est "  +month+ " "+y ;    }
+
+
+    public String calculerRevenue (Long id) {
+        Contract c=IService.getContractById(id);
+        long months= ChronoUnit.MONTHS.between(c.getBegin_Date(), c.getEnd_Date());
+        double result=c.getRevenue()*months;
+
+        return "Votre Revenue Total est "  +result ;
+
+
+    }
+
+    public String calculerROA (Long id) {
+        Contract c=IService.getContractById(id);
+        long months= ChronoUnit.MONTHS.between(c.getBegin_Date(), c.getEnd_Date());
+        double result=c.getRevenue()*months;
+        double P=c.getPrice_Cont();
+        double ROA=(result-P)/P*100;
+        return "Votre ROA Total est %"  +ROA ;    }
+
+    public String calculerrprix (Long id) {
+        Contract c=IService.getContractById(id);
+        int yb=c.getBegin_Date().getYear();
+        int y;
+        int month=c.getBegin_Date().getMonthValue();
+        int i=0;
+        double total=0;
+        double P=c.getPrice_Cont();
+        double result=c.getRevenue();
+
+        do {
+            i = i + 1;
+
+            total = total + result;
+        }
+        while (P > total);
+
+        month = month + i;
+        y=yb;
+        if (month > 12)
+            do {
+                month = month - 12;
+                y = y + 1;
+
+            } while (month > 12);
+        return "le mois et l'annee estimé  du return de votre capital est "  +month+ " "+y ;    }
 
 
 }

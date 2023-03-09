@@ -11,5 +11,11 @@ public interface SellBuyModuleService {
     public Contract validerContract(ContractValidationRequest cvr);
     public List<String> Statistique();
     public void NotifySellerandBuyer();
+    public String estimerRevenue (Contract contract);
+    public String estimerROA (Contract contract);
+    public String estimerrprix (Contract contract);
+    public String calculerRevenue (Long id);
+    public String calculerROA (Long id);
+    public String calculerrprix (Long id);
 
 }

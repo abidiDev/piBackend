@@ -28,6 +28,7 @@ public class SellerBuyerController {
     public Contract addAndAssignContractToRealEstateAndActorContract(@RequestBody ContractRequest contractRequest) {
        return sellBuyModuleService.addAndAssignContractToRealEstateAndActorContract(contractRequest);
     }
+
     @PostMapping("/validerC")
     public Contract validerContract(@RequestBody ContractValidationRequest cvr) {
         return sellBuyModuleService.validerContract(cvr);
@@ -45,6 +46,25 @@ public class SellerBuyerController {
     public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
         return service.exportReport(format);
     }
+    @PostMapping("/estimerRevenue")
+    @ResponseBody
+    public String estimerRevenue( @RequestBody Contract contract  ) { return sellBuyModuleService.estimerRevenue(contract);}
+    @PostMapping("/estimerrprix")
+    @ResponseBody
+    public String estimerrprix ( @RequestBody Contract contract ) { return sellBuyModuleService.estimerrprix(contract);}
+    @PostMapping("/estimerROA")
+    @ResponseBody
+    public String estimerROA ( @RequestBody Contract contract ) { return sellBuyModuleService.estimerROA(contract);}
+    @GetMapping("/calculerRevenue/{id}")
+    @ResponseBody
+    public String calculerRevenue( @PathVariable("id") Long id) { return sellBuyModuleService.calculerRevenue(id);}
+    @GetMapping("/calculerROA/{id}")
+    @ResponseBody
+    public String calculerROA( @PathVariable("id") Long id) { return sellBuyModuleService.calculerROA(id);}
+    @GetMapping("/calculerrprix/{id}")
+    @ResponseBody
+    public String calculerrprix( @PathVariable("id") Long id) { return sellBuyModuleService.calculerrprix(id);}
+
 }
 
 

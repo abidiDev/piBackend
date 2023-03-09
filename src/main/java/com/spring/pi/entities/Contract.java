@@ -26,6 +26,7 @@ public class Contract implements Serializable {
     private LocalDate createdDate;
     private  LocalDate end_Date;
     private float price_Cont;
+    private float revenue;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();

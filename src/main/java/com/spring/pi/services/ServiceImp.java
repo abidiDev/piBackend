@@ -171,6 +171,7 @@ public class ServiceImp implements IService{
     public  Real_Estate addReal_Estate(RealestateRequest request) {
        // List<? extends Real_Estate>
         Real_Estate realEstate=null;
+
         switch (request.getType()) {
             case "House":
                 House house = realEstateRepository.save(request.getHouse());
