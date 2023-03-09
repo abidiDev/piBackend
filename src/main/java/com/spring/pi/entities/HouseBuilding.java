@@ -1,5 +1,6 @@
 package com.spring.pi.entities;
 
+import aj.org.objectweb.asm.ConstantDynamic;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class HouseBuilding implements Serializable {
     @ManyToOne
     @JoinColumn(name = "IDAgnce")
     private ConstructionAgency constructionAgency;
+
 
 
 }

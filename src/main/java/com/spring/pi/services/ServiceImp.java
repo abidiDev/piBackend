@@ -21,7 +21,8 @@ public class ServiceImp implements IService{
     ActorRepository actorRepository;
     ConversationRepository conversationRepository;
 
-
+    MaisonRepository maisonRepository;
+    AgenceRepository agenceRepository;
 
     //////////////ads//////////////////
     @Override
@@ -269,7 +270,30 @@ public class ServiceImp implements IService{
     public Conversation getConversationById(long id) {
         return conversationRepository.findById(id).orElse(null);
     }
+    ///////////house
+    @Override
+    public HouseBuilding ajoueterMaisonBuild(HouseBuilding maison_construction) {
+        return maisonRepository.save(maison_construction);
+    }
 
+    @Override
+    public ConstructionAgency ajouterAganceEtAffecterMaison(ConstructionAgency agencyofconstructuin, Long id) {
+        HouseBuilding maison_construction=maisonRepository.findById(id).orElse(null);
+        assert maison_construction != null;
+        maison_construction.setConstructionAgency(agencyofconstructuin);
+        return agenceRepository.save(agencyofconstructuin);
+    }
+
+
+
+    @Override
+    public void deleteMaison(Long id) {
+        ConstructionAgency agencyOfConstruction=agenceRepository.findById(id).orElse(null);
+        assert agencyOfConstruction != null;
+        List<HouseBuilding> a = agencyOfConstruction.getBuildinghouses();
+        maisonRepository.deleteAll();
+        agenceRepository.delete(agencyOfConstruction);
+    }
 }
 
 

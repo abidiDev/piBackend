@@ -225,7 +225,22 @@ public class Controller {
 
         return iService.getConversationById(id);
     }
-
+////////////construction
+    @PostMapping("/ajoueterMaisonBuild")
+    @ResponseBody
+    public HouseBuilding ajoueterMaisonBuild(@RequestBody HouseBuilding maison_construction){
+        return iService.ajoueterMaisonBuild(maison_construction);
+    }
+    @PostMapping("/ajouterAganceEtAffecterMaison/{id}")
+    @ResponseBody
+    public ConstructionAgency ajouterAganceEtAffecterMaison(@RequestBody ConstructionAgency agencyofconstructuin,@PathVariable("id") Long id){
+        return iService.ajouterAganceEtAffecterMaison(agencyofconstructuin, id);
+    }
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteMaison(@PathVariable("id") Long id){
+        iService.deleteMaison(id);
+    }
 
 
 }

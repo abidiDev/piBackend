@@ -67,6 +67,12 @@ public interface IService {
     public Conversation updateConversation(Conversation c);
     public void deleteConversation(long id);
     public Conversation getConversationById(long id);
+    //////////housebuilding////////
+    public HouseBuilding ajoueterMaisonBuild(HouseBuilding maison_construction);
+    public ConstructionAgency ajouterAganceEtAffecterMaison(ConstructionAgency agencyofconstructuin, Long id);
+
+
+    public void deleteMaison(Long id);
 
 
 
