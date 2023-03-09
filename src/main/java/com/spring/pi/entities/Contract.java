@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -20,17 +21,12 @@ public class Contract implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
     private Boolean valid;
+    private LocalDate begin_Date;
 
-    @Temporal(TemporalType.DATE)
-
-    private Date begin_Date;
-    @Temporal(TemporalType.DATE)
-
-    private Date createdDate;
-    @Temporal(TemporalType.DATE)
-
-    private  Date end_Date;
+    private LocalDate createdDate;
+    private  LocalDate end_Date;
     private float price_Cont;
+    private float revenue;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Actor_Contract> actor_Contrats = new LinkedHashSet<>();

@@ -23,15 +23,13 @@ public class Comment implements Serializable {
     private LocalDate createdAt;
 
 
-  /*  @ManyToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference(value="test3")
+    private Ads ads;
 
-    @JoinColumn(name = "ads_id")
-    private Ads ads;*/
 
-@ManyToOne
-@JoinColumn(name = "user_id")
-@JsonIgnore
-Actor user;
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    Actor user;
 }

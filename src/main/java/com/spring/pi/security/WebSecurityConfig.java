@@ -87,6 +87,11 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests().antMatchers("/api/auth/**","/contact/**","/CRUD/**","/chat/**","/user/**","/FAC/**").permitAll().antMatchers("/api/test/**","/contact/**","/CRUD/**","/chat/**","/user/**","/FAC/**").permitAll().anyRequest().authenticated();
 
+
+
+
+
+
     http.authenticationProvider(authenticationProvider());
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

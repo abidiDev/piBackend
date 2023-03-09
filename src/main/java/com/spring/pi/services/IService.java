@@ -1,6 +1,7 @@
 package com.spring.pi.services;
 
 import com.spring.pi.entities.*;
+import com.spring.pi.payload.request.RealestateRequest;
 
 import java.util.List;
 
@@ -39,8 +40,7 @@ public interface IService {
     ///////////realstate/////////////
     public List<Real_Estate> getAllReal_Estate();
     public Real_Estate getReal_EstateById(long id);
-    public House addReal_Estate(House house);
-    public House updateReal_Estate(House house);
+    public  Real_Estate addReal_Estate(RealestateRequest request);
     public void deleteReal_Estate(long id);
     /////////////agency/////////////////////////////
     public List<Agency> getAllAgency();
@@ -57,17 +57,17 @@ public interface IService {
     public Actor updateActor(Actor actor);
     public void deleteActor(long id);
 
-
     ///////////////conversation/////////////////////////
-
-
-
     public List<Conversation> getAllConversations();
     public Conversation addConversation(Conversation c);
     public Conversation updateConversation(Conversation c);
     public void deleteConversation(long id);
     public Conversation getConversationById(long id);
+    //////////housebuilding////////
+    public HouseBuilding ajoueterMaisonBuild(HouseBuilding maison_construction);
+    public ConstructionAgency ajouterAganceEtAffecterMaison(ConstructionAgency agencyofconstructuin, Long id);
 
 
+    public void deleteMaison(Long id);
 
 }

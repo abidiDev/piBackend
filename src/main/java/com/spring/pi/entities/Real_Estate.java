@@ -7,7 +7,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -24,14 +26,14 @@ public abstract class Real_Estate  implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
     private float surface;
-    private float price;
+    private double price;
 
-
-    @JsonIgnore
     @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
     private Localisation localisation;
 
-
+    @OneToMany(mappedBy = "real_Estate", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="test1")
+    private List<Ads> adses = new ArrayList<>();
 
 
 

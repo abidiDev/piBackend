@@ -29,7 +29,6 @@ public class Conversation implements Serializable {
 
     private List<Actor> actors = new ArrayList<>();
 
-
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Generic_Message> generic_Messages = new LinkedHashSet<>();
 

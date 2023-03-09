@@ -28,35 +28,32 @@ public class Ads implements Serializable {
 
   private Boolean favorite;
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Rating> ratings = new LinkedHashSet<>();
+    @JsonManagedReference(value="test2")
+    private Set<Rating> rating = new LinkedHashSet<>();
 
     @Enumerated(EnumType.STRING)
     private Type type ;
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Actor actor;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value="test1")
     private Real_Estate real_Estate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Generic_Message> generic_Messages = new LinkedHashSet<>();
 
 
+
     @OneToMany(mappedBy = "ads", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Set<Rating> rating = new LinkedHashSet<>();
-
-    /*@OneToMany(mappedBy = "ads", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Comment> comments = new ArrayList<>();*/
+    @JsonManagedReference(value="test3")
+    private List<Comment> comments = new ArrayList<>();
 
 
 
 
-//d9i9a hnai jeya
+
 
 }

@@ -24,11 +24,15 @@ public class ForumPublication implements Serializable {
     private String topic;
     private LocalDate date_pub;
 
-    @OneToMany
+    // @JsonManagedReference
+    @OneToMany()
+
     Set<Comment> comments;
 
     @OneToMany(mappedBy = "forumpublication")
     @JsonIgnore
+
+    // @JsonManagedReference
     Set<Reactions> reactions;
 
     @ManyToOne

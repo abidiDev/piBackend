@@ -9,6 +9,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.*;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -37,6 +47,7 @@ public class Actor implements Serializable {
     private Boolean connected;
     private String Badge;
     private boolean blocked=false;
+
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
@@ -48,10 +59,11 @@ public class Actor implements Serializable {
 
 
 
-
     @ManyToMany(mappedBy = "actors", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Conversation> conversations = new LinkedHashSet<>();
-    @JsonManagedReference(value="test6")    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value="test6")
     private Set<Generic_Message> generic_Messages = new LinkedHashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -69,10 +81,8 @@ public class Actor implements Serializable {
     private Set<ActorAdsFav> actorAdsFavs = new LinkedHashSet<>();
 
     @OneToMany
+    @JsonIgnore
     private List<Ads> adses = new ArrayList<>();
-
-
-
 
 
     @OneToMany(mappedBy = "utilisateur")
@@ -85,5 +95,6 @@ public class Actor implements Serializable {
 
     @OneToMany()
     private List<Actor_construction> actorConstructionList;
+
 
 }

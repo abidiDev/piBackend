@@ -1,7 +1,7 @@
 package com.spring.pi.controllers;
 
 import com.spring.pi.entities.*;
-import com.spring.pi.repositories.*;
+import com.spring.pi.payload.request.RealestateRequest;
 import com.spring.pi.services.IService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,9 @@ import java.util.List;
 @RequestMapping("/CRUD")
 
 public class Controller {
+
     IService iService;
+
     ////////////////////////ads//////////////////////////////////
     @GetMapping("/AllAds")
     @ResponseBody
@@ -152,12 +154,16 @@ public class Controller {
     public Real_Estate getReal_EstateById(@PathVariable long id){return iService.getReal_EstateById(id);}
 
 
-    @PostMapping("/addRealEstate")
-    @ResponseBody
-    public House addReal_Estate(@RequestBody House house){return iService.addReal_Estate(house);}
+    @PostMapping("/real-estate")
+    public Real_Estate  addReal_Estate(@RequestBody RealestateRequest request) {
+     return    iService.addReal_Estate(request);
+    }
+
     @PutMapping("/updateRealEstate")
     @ResponseBody
-    public House updateReal_Estate(@RequestBody House house){return iService.updateReal_Estate(house);}
+    public Real_Estate updateReal_Estate(@RequestBody RealestateRequest realEstate)
+    {return iService.addReal_Estate(realEstate);}
+
     @DeleteMapping("/deleteRealEstate/{id}")
     @ResponseBody
     public void deleteReal_Estate(@PathVariable long id){iService.deleteReal_Estate(id);}
@@ -208,7 +214,7 @@ public class Controller {
 
     @PutMapping("/updateConversation")
     @ResponseBody
-    public Conversation updateConversation(@RequestBody Conversation c) {
+    public Conversation updateContrat(@RequestBody Conversation c) {
         return iService.updateConversation(c);
     }
 
@@ -225,7 +231,22 @@ public class Controller {
 
         return iService.getConversationById(id);
     }
-
+////////////construction
+    @PostMapping("/ajoueterMaisonBuild")
+    @ResponseBody
+    public HouseBuilding ajoueterMaisonBuild(@RequestBody HouseBuilding maison_construction){
+        return iService.ajoueterMaisonBuild(maison_construction);
+    }
+    @PostMapping("/ajouterAganceEtAffecterMaison/{id}")
+    @ResponseBody
+    public ConstructionAgency ajouterAganceEtAffecterMaison(@RequestBody ConstructionAgency agencyofconstructuin,@PathVariable("id") Long id){
+        return iService.ajouterAganceEtAffecterMaison(agencyofconstructuin, id);
+    }
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteMaison(@PathVariable("id") Long id){
+        iService.deleteMaison(id);
+    }
 
 }
 

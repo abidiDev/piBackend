@@ -26,7 +26,8 @@ public class Generic_Message  implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-   private String content;
+    private String content;
+
     @Enumerated(EnumType.STRING)
 
     private Specification specification ;
@@ -44,6 +45,7 @@ public class Generic_Message  implements Serializable {
     @JoinColumn(name = "actor_id")
     //@JsonBackReference
     @JsonBackReference(value="test6")
+
     private Actor actor;
 
     public Ads getAds() {
