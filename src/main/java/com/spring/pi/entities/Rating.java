@@ -26,6 +26,6 @@ public class Rating implements Serializable {
 
 
     @ManyToOne (cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value="test2")
     private Ads ads;
 }

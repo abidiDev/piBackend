@@ -101,7 +101,7 @@ public class ConstructionControlleur {
     }*/
     @PostMapping("/add")
     @ResponseBody
-    public Actor add(@RequestBody AddConstructionRequeste addConstructionRequeste){
+    public List<Actor_construction> add(@RequestBody AddConstructionRequeste addConstructionRequeste){
        return serviceImpConstruction.add(addConstructionRequeste);
     }
     /*@GetMapping("/getd")

@@ -146,7 +146,8 @@ public class ServiceImpConstructionConstruction implements IServiceConstruction 
         object.add(monthback);
         return object;
     }
-    public Actor add(AddConstructionRequeste actorConstruc){
+    @Override
+    public List<Actor_construction> add(AddConstructionRequeste actorConstruc){
         Actor actor= actorRepository.findById(actorConstruc.getIdActor()).orElse(null);
         ConstructionAgency constructionAgency= agenceRepository.findById(actorConstruc.getIdAgenceConstruction()).orElse(null);
         Actor_construction actorConstruction=new Actor_construction();
@@ -160,7 +161,7 @@ public class ServiceImpConstructionConstruction implements IServiceConstruction 
         actorConstruction.setDateDebut(actorConstruc.getDateDebut());
         actorConstruction.setDateLimit(actorConstruc.getDateLimit());
         actorConstruction.setPrixC(actorConstruc.getPrixC());
-        actorConstruction.setNbredetranche(actorConstruction.getNbredetranche());
+        actorConstruction.setNbredetranche(actorConstruc.getNbredetranche());
         actorConstruction.setMontantRestant(actorConstruc.getPrixC());
         actorConstruction.setDate(i+x);
         actorConstruction.setMensionalite(l);
@@ -174,7 +175,7 @@ public class ServiceImpConstructionConstruction implements IServiceConstruction 
         maisonRepository.save(houseBuilding);
 
 
-        return actor;
+        return actor.getActorConstructionList();
 
     }
     /////////fonction dgestion d'aide financiere

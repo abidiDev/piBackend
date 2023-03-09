@@ -25,7 +25,6 @@ public class Transaction implements Serializable {
     private Date dateTrans;
 
 
-    @JsonManagedReference
     @ManyToOne
     private Real_Estate real_Estate;
 

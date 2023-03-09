@@ -1,6 +1,7 @@
 package com.spring.pi.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -18,6 +19,8 @@ public class Localisation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    private String    state;
+
     private String city;
     private String district;
     private String street;
@@ -27,11 +30,13 @@ public class Localisation implements Serializable {
 
 
     @OneToOne(mappedBy = "localisation", cascade = CascadeType.ALL)
+    @JsonIgnore
+
     private Real_Estate real_Estate;
 
 
     @OneToOne(mappedBy = "localisation", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value="test4")
     private Social_Service social_Service;
 
 }
